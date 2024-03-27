@@ -1,7 +1,8 @@
-import React from "react";
+// import React from "react";
+"use client";
 
-const AddPage = () => {
-	return <div>AddPage</div>;
+const PropertyPage = () => {
+	return <div>PropertyPage</div>;
 };
 
-export default AddPage;
+export default PropertyPage;
