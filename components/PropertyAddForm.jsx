@@ -30,13 +30,65 @@ const PropertyAddForm = () => {
 		images: [],
 	});
 
+	console.log(fields);
+
 	useEffect(() => {
 		setMounted(true);
 	}, []);
 
-	const handleChange = () => {};
-	const handleAmenitiesChange = () => {};
-	const handleImageChange = () => {};
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+
+		if (name.includes(".")) {
+			const [outerKey, innerKey] = name.split(".");
+
+			setFields((prevFields) => ({
+				...prevFields,
+				[outerKey]: {
+					...prevFields[outerKey],
+					[innerKey]: value,
+				},
+			}));
+		} else {
+			setFields((prevFields) => ({
+				...prevFields,
+				[name]: value,
+			}));
+		}
+	};
+	const handleAmenitiesChange = (e) => {
+		const { value, checked } = e.target;
+
+		const updatedAmenities = [...fields.amenities];
+
+		if (checked) {
+			updatedAmenities.push(value);
+		} else {
+			const index = updatedAmenities.indexOf(value);
+
+			if (index !== -1) {
+				updatedAmenities.splice(index, 1);
+			}
+		}
+
+		setFields((prevFields) => ({
+			...prevFields,
+		}));
+	};
+	const handleImageChange = (e) => {
+		const { files } = e.target;
+
+		const updatedImages = [...fields.images];
+
+		for (const file of files) {
+			updatedImages.push(file);
+		}
+
+		setFields((prevFields) => ({
+			...prevFields,
+			images: updatedImages,
+		}));
+	};
 
 	return (
 		mounted && (
